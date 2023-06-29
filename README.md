@@ -2,7 +2,7 @@
 
 This project is a Disney+ clone built using React and Vite.js, and it leverages the IMDB Movies Database API to fetch movie information. The clone aims to replicate the popular Disney+ streaming platform's user interface and functionality.
 
-![Disney+ Clone Screenshot](screenshot.png)
+![Disney+ Clone Screenshot](Disney_clone.png)
 
 ## Features
 
