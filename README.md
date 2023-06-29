@@ -20,7 +20,7 @@ A live demo of the Disney+ Clone can be accessed [here](https://rad-youtiao-402d
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/disney-plus-clone.git
+git clone https://github.com/sourabhvv/Disney-front-end.git
 ```
 
 2. Navigate to the project directory:
