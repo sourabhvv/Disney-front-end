@@ -12,8 +12,14 @@ import { HiHome,
     HiTv } from "react-icons/hi2";
 import { HiPlus,HiDotsVertical } from "react-icons/hi";
 import HeaderItem from './HeaderItem';
+function logOut(){
+  localStorage.clear();
+  window.location.href ="http://localhost:5173/";
+}
 function Header() {
+  
     const { user, isAuthenticated, isLoading } = useAuth0();
+    const token = localStorage.getItem('token');
     const [toggle,setToggle]=useState(false);
     const [showPopup, setShowPopup] = useState(false);
 
@@ -33,31 +39,21 @@ function Header() {
             icon:HiMagnifyingGlass
         },
         {   
-            name:'WATCH LIST',
-            link:'/',
+            name:'Play LIST',
+            link:'/Playlist',
             icon:HiPlus
         },
         {   
-            name:'ORIGINALS',
-            link:'/',
-            icon:HiStar
-        },
-        {   
-            name:'MOVIES',
-            link:'/',
-            icon:HiPlayCircle
-        },
-        {   
-            name:'SERIES',
-            link:'/',
-            icon:HiTv
-        }
+          name:'public Play LIST',
+          link:'/public-play-list',
+          icon:HiPlus
+      },
+       
     ]
   return (
     <div className='flex items-center justify-between p-5'>
         <div className='flex  gap-8 items-center'>
-        <img src={logo} className='w-[80px] 
-        md:w-[115px] object-cover' />
+      
         <div className='hidden md:flex gap-8'>
         {menu.map((item)=>(
             <HeaderItem name={item.name} Icon={item.icon} link={item.link} />
@@ -80,25 +76,27 @@ function Header() {
         </div>
         
 
-        {!isAuthenticated ? (
-    <LoginButton />
+        {!token ? (
+       <>
+       <Link to={`/login`}> login</Link>
+       
+       </>
 ) : (
     <div>
-    <img src={user.picture} 
-    className='w-[40px] rounded-full'
-    onClick={togglePopup}
-    />
+   <button onClick={logOut}>logout</button>
 
-    {
-    showPopup && (
-            <div className="popup">
-            <img src={user.picture} className='w-[100px] rounded-full'/>
-            <p>Username: {user.name}</p>
-            <p>Username: {user.email}</p>
-           <LogoutButton/>
-          </div> 
-        )
-    }
+{
+  showPopup && (
+    <div className="fixed z-40 top-20 right-40 flex w-20 h-30 bg-black bg-opacity-50">
+      <div className="bg-white rounded-lg p-8 max-w-xs">
+        <img src={user.picture} className="w-14 h-14 mx-auto rounded-full mb-1"/>
+        <p className="text-lg font-bold text-center mb-1">{user.name}</p>
+        <p className="text-sm text-gray-600 text-center mb-2">{user.email}</p>
+        <LogoutButton/>
+      </div>
+    </div>
+  )
+}
    
     </div>
     

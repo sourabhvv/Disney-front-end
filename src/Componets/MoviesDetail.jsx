@@ -1,106 +1,127 @@
-import React from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
-
-const movies = [
-  { 
-
-    id:1,
-    title: 'Avengers Endgame',
-    image: 'https://img10.hotstar.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/5158/875158-v',
-  },
-  
-  { 
-    id:2,
-    title: 'Guardians of the Galaxy Vol. 3',
-    image: 'https://img10.hotstar.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/7487/1557487-v-7443ca868089',
-  },
-
-  { 
-    id:3,
-    title: 'Aladin ',
-    image: 'https://img10.hotstar.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/5151/875151-v',
-  },
-
-  { 
-    id:4,
-    title: 'Moana 2016',
-    image: 'https://img10.hotstar.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/8258/1548258-v-0afc42d2d4b8',
-  },
-
-  { 
-    id:5,
-    title: 'Frozen 2 2019',
-    image: 'https://img10.hotstar.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/5203/875203-v',
-  },
-  {   id:6,
-      title: 'Disneys Mulan ',
-      image: 'https://img10.hotstar.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/6662/846662-v',
-  },
-    
-  { 
-   id:7,
-      title: 'The Lion King ',
-      image: 'https://img10.hotstar.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/8273/1548273-v-df27a233f460',
-  },
-
-    { 
-      id:8,
-      title: 'Aladin ',
-      image: 'https://img10.hotstar.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/5151/875151-v',
-    },
-
-    { 
-      id:9,
-      title: 'Moana 2016',
-      image: 'https://img10.hotstar.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/8258/1548258-v-0afc42d2d4b8',
-    },
-
-    { 
-      id:10,
-      title: 'Frozen 2 2019',
-      image: 'https://img10.hotstar.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/5203/875203-v',
-    },
-    {
-      id:11,
-      title:'The Marvels',
-      image:'https://image.tmdb.org/t/p/original/9GBhzXMFjgcZ3FdR9w3bUMMTps5.jpg',
-    },
-
-];
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';// Ensure you import the toast function
 function MoviesDetail() {
+  const { id } = useParams();
+  const [movie, setMovie] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const token = localStorage.getItem('token');
 
-    const {id} = useParams();
-    const movie = movies.find((movie) => movie.id === parseInt(id, 10));
+  const Addplaylist  = async(e) =>{
+    e.preventDefault();
 
- if (!movie) {
-    return <div>Movies not Found !</div>
-    }
 
-    const fakeDescription =
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
-  const fakeGenres = ['Action', 'Adventure', 'Fantasy'];
-  const fakeReleaseDate = '2022-01-01';
-  const fakeDuration = '2h 30m';
+    await axios.post("http://localhost:5000/author/createPlaylist",
+    {
+      title:movie.Title,
+      movieId:id
+    },{
+        headers: {
+       
+          Authorization: `Bearer ${token}`,
+        }
+        
+      }).then(function(response){
+      if(response.status==200){
+            toast(`👌 ${response.data.message}!`, {
+                  position: "top-right",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "light",
+                });
+           
+        
+           
+      }
+      }).catch(function(error){
+           toast.error('😟 error occured!', {
+           position: "top-right",
+           autoClose: 5000,
+           hideProgressBar: false,
+           closeOnClick: true,
+           pauseOnHover: true,
+           draggable: true,
+           progress: undefined,
+           theme: "light",
+           });
+      });
+
+
+
+
+
+  }  
+  
+  useEffect(() => {
+    const fetchMovieDetails = async () => {
+      try {
+        const response = await axios.get(`http://www.omdbapi.com/?i=${id}&apikey=f2933099`);
+        setMovie(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching movie details:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchMovieDetails();
+  }, [id]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!movie || movie.Response === 'False') {
+    return <div>Movie not Found!</div>;
+  }
 
   return (
     <>
-    
-    <header
-        className="bg-cover bg-center flex flex-col items-center justify-center filter brightness-75"
-        style={{ backgroundImage: `url("${movie.image}")`, height: '100vh' }}
+    <ToastContainer />
+     
+
+
+      <div className='space-y-2 p-6 sm:px-8 sm:py-6 lg:p-4 xl:px-8 xl:py-6'>
+      
+     
+
+      <header
+        className="bg-cover bg-center flex flex-col  filter brightness-45"
+        style={{ backgroundImage: `url("${movie.Poster}")`, height: '100vh' }}
       >
-        <div className="text-center text-white">
-          <h1 className="text-4xl font-bold mb-4">{movie.title}</h1>
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Subscribe to watch
+       
+       <div class="max-w-prose flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-4 p-6 sm:px-8 sm:py-6 lg:p-4 xl:px-8 xl:py-6">
+  <div class="flex flex-col items-start text-white mt-5">
+    <h1 class="text-4xl font-bold mb-4">{movie.Title}</h1>
+    <p class="text-lg text-gray-300 mb-4">original language:{movie.Language}</p>
+    <p class="text-lg text-gray-300 mb-4">Plot: {movie.Plot}</p>
+    <p class="text-lg text-gray-300 mb-4">Release Date: {movie.Released}</p>
+    <p class="text-lg text-gray-300 mb-4">rating:{movie.imdbRating}</p>
+    <button onClick={Addplaylist} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Add to playlist
           </button>
-        </div>
+  </div>
+  <div class="flex-shrink-0">
+  </div>
+</div> 
       </header>
-    </>  
+    </div>
+
+
+
+
+
+
+      
+    </>
   );
-
-
 }
 
-export default MoviesDetail
+export default MoviesDetail;

@@ -2,11 +2,14 @@ import React from 'react'
 import GenresList from '../Constant/GenresList'
 import MovieList from './MovieList'
 import ProductionHouse from './ProductionHouse';
+import Explore from './Explore';
 
 function GenreMovieList() {
   return (
     <div>
          <ProductionHouse/>
+
+         <Explore/>
         {GenresList.genere.map((item,index)=>index<=4&&(
             <div className='p-8 px-8 md:px-16'>
                 <h2 className='text-[20px] text-white 

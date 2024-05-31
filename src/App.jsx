@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 import { BrowserRouter, Route, Switch, Link, useLocation } from 'react-router-dom';
 import './App.css';
 import Header from './Componets/Header';
@@ -11,6 +12,10 @@ import Marvel from './Componets/Marvel';
 import MoviesDetail from './Componets/MoviesDetail';
 import MovieInfo from './Componets/MovieInfo';
 import Explore from './Componets/Explore';
+import Login from './Auth/Login';
+import Playlist from './Componets/Playlist';
+import SignUp from './Auth/Signup';
+import Publicplaylist from './Componets/Publicplaylist';
 function Headers() {
   const location = useLocation();
 
@@ -22,13 +27,13 @@ function Headers() {
 }
 
 function App() {
-  return (
-    <BrowserRouter>
+  
+
+  const userRoute = () => {
+    return (
+        <BrowserRouter>
       <div className="">
         <Header />
-       
-       
-
         <Switch>
           <Route path='/' exact component={GenreMovieList} />
           <Route path='/movies/disney' component={Disney} />
@@ -36,9 +41,36 @@ function App() {
           <Route path='/movies-Details/:id' component={MoviesDetail} />
           <Route  path='/explore' exact component={Explore}/>
           <Route  path='/MovieInfo' exact component={MovieInfo}/>
+          <Route  path='/Playlist' exact component={Playlist}/>
+          <Route path='/public-play-list' exact component={Publicplaylist} />
         </Switch>
       </div>
     </BrowserRouter>
+
+    );
+}
+  const authRoute = () => {
+    return (
+        <>
+           <BrowserRouter>
+      <div className="">
+      
+        <Switch>
+          <Route path='/' exact component={Login} />
+          <Route path='/signup' exact component={SignUp} />
+        </Switch>
+      </div>
+    </BrowserRouter>
+        </>
+    );
+}
+
+const token = localStorage.getItem('token');
+
+  return ( 
+    <>
+    {!!token ?userRoute() : authRoute()}
+    </>
   );
 }
 
