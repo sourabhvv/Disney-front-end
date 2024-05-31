@@ -1,4 +1,9 @@
 import React, { useState } from 'react'
+import {Link} from 'react-router-dom'
+import { useAuth0 } from '@auth0/auth0-react';
+
+import LoginButton from '../Auth/LoginButton';
+import LogoutButton from '../Auth/LogoutButton';
 import logo from './../assets/Images/logo.png'
 import { HiHome,
     HiMagnifyingGlass,
@@ -8,30 +13,43 @@ import { HiHome,
 import { HiPlus,HiDotsVertical } from "react-icons/hi";
 import HeaderItem from './HeaderItem';
 function Header() {
+    const { user, isAuthenticated, isLoading } = useAuth0();
     const [toggle,setToggle]=useState(false);
+    const [showPopup, setShowPopup] = useState(false);
+
+  const togglePopup = () => {
+    setShowPopup(!showPopup);
+  };
+
     const menu=[
-        {
+        {   
             name:'HOME',
+            link:'/',
             icon:HiHome
         },
-        {
+        {   
             name:'SEARCH',
+            link:'explore',
             icon:HiMagnifyingGlass
         },
-        {
+        {   
             name:'WATCH LIST',
+            link:'/',
             icon:HiPlus
         },
-        {
+        {   
             name:'ORIGINALS',
+            link:'/',
             icon:HiStar
         },
-        {
+        {   
             name:'MOVIES',
+            link:'/',
             icon:HiPlayCircle
         },
-        {
+        {   
             name:'SERIES',
+            link:'/',
             icon:HiTv
         }
     ]
@@ -42,7 +60,7 @@ function Header() {
         md:w-[115px] object-cover' />
         <div className='hidden md:flex gap-8'>
         {menu.map((item)=>(
-            <HeaderItem name={item.name} Icon={item.icon} />
+            <HeaderItem name={item.name} Icon={item.icon} link={item.link} />
         ))}
         </div>
           <div className='flex md:hidden gap-5'>
@@ -60,8 +78,34 @@ function Header() {
             </div> 
         </div>
         </div>
-        <img src="https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745"
-        className='w-[40px] rounded-full'/>
+        
+
+        {!isAuthenticated ? (
+    <LoginButton />
+) : (
+    <div>
+    <img src={user.picture} 
+    className='w-[40px] rounded-full'
+    onClick={togglePopup}
+    />
+
+    {
+    showPopup && (
+            <div className="popup">
+            <img src={user.picture} className='w-[100px] rounded-full'/>
+            <p>Username: {user.name}</p>
+            <p>Username: {user.email}</p>
+           <LogoutButton/>
+          </div> 
+        )
+    }
+   
+    </div>
+    
+)}
+      
+       
+  
     </div>
   )
 }

@@ -17,14 +17,7 @@
   -webkit-text-size-adjust: 100%;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
+
 
 body {
   height: 100vh;
@@ -35,6 +28,10 @@ body {
 
 h1 {
   font-size: 3.2em;
+  line-height: 1.1;
+}
+.search-title {
+  font-size: 2.2em;
   line-height: 1.1;
 }
 
@@ -69,3 +66,26 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+/* MoviesDetail.css */
+
+
+.center_container{
+  align-items: flex-end;
+  display: flex;
+  justify-content: left;
+  margin-bottom: 400px;
+  margin-left: 150px;
+  padding-top: 1rem;
+  position: relative;
+  width: 100%;
+}
+
+.searchbar{
+  align-items: center;
+  display: flex;
+  position: relative;
+}
+
+
+
