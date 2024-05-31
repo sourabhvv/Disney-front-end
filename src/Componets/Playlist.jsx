@@ -18,7 +18,7 @@ function Playlist() {
     useEffect(() => {
     const fetchMovieDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/author/getPlaylist`,{
+        const response = await axios.get(`https://backendmovieapp-2t25.onrender.com/author/getPlaylist`,{
             headers: {
               Authorization: `Bearer ${token}`,
             }
@@ -39,7 +39,7 @@ function Playlist() {
   const toggleVisibility = async () => {
     try {
       const response = await axios.post(
-        'http://localhost:5000/author/publicPlaylist',
+        'https://backendmovieapp-2t25.onrender.com/author/publicPlaylist',
         { publicValue: isPublic },
         {
           headers: {

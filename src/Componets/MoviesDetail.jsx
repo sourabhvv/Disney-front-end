@@ -14,7 +14,7 @@ function MoviesDetail() {
     e.preventDefault();
 
 
-    await axios.post("http://localhost:5000/author/createPlaylist",
+    await axios.post("https://backendmovieapp-2t25.onrender.com/author/createPlaylist",
     {
       title:movie.Title,
       movieId:id

@@ -9,7 +9,7 @@ function PublicPlaylist() {
   useEffect(() => {
     const fetchPlaylists = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/author/getPublicPlaylist');
+        const response = await axios.get('https://backendmovieapp-2t25.onrender.com/author/getPublicPlaylist');
         setPlaylists(response.data);
       } catch (err) {
         setError(err.message);

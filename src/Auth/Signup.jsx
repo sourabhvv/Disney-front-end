@@ -14,7 +14,7 @@ function SignUp() {
   const handleSubmit = async(e) =>{
     e.preventDefault();
 
-      await axios.post("http://localhost:5000/users/signUp",{
+      await axios.post("https://backendmovieapp-2t25.onrender.com/users/signUp",{
       password:password,
       email:email,
       username:username,
