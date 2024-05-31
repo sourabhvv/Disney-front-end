@@ -6,7 +6,7 @@ function AllMovies({movies}) {
   return (
     <>
      <div className="p-8 px-8 md:px-16">
-      <h2 className="text-[20px] text-white font-bold">Marvel</h2>
+      <h2 className="text-[20px] text-white font-bold"></h2>
       <div className="flex flex-wrap gap-8 justify-center">
         {movies.map((movie) => (
           <Link key={movie.id} to={`/movies-Details/${movie.id}`} className="hover:scale-110 transition-all duration-150 ease-in">
