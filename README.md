@@ -2,26 +2,25 @@
 
 This project is a Disney+ clone built using React and Vite.js, and it leverages the IMDB Movies Database API to fetch movie information. The clone aims to replicate the popular Disney+ streaming platform's user interface and functionality.
 
-![Disney+ Clone Screenshot](screenshot.png)
+![Disney+ Clone Screenshot](Disney_clone.png)
 
 ## Features
 
 - Browse and search for movies available in the IMDB Movies Database.
 - View detailed information about each movie, including the title, release date, rating, and overview.
 - Play movie trailers directly within the application.
-- Add movies to a watchlist for later viewing.
-- Responsive design for seamless browsing on different devices.
+- Responsive design for seamless browsing on different device
 
-## Demo
+## Demo Deploys on netlify
 
-A live demo of the Disney+ Clone can be accessed [here](https://your-demo-link.com).
+A live demo of the Disney+ Clone can be accessed [here](https://rad-youtiao-402d92.netlify.app/).
 
 ## Installation
 
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/disney-plus-clone.git
+git clone https://github.com/sourabhvv/Disney-front-end.git
 ```
 
 2. Navigate to the project directory:
@@ -75,10 +74,11 @@ check here- https://youtu.be/3NHYl0Lo74A
 
 ## Acknowledgments
 
-- [IMDB Movies Database API](https://your-api-link.com) for providing movie data.
+- [IMDB Movies Database API]for providing movie data.
 - The Disney+ streaming platform for the inspiration behind this clone.
 
 ## Contact
+sourabhv945@gmail.com
 
 For any questions or inquiries, please reach out to [your-email@example.com](mailto:your-email@example.com).
 
